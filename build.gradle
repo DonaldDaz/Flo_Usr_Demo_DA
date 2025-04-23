@@ -25,8 +25,8 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'com.opencsv:opencsv:5.10'
     implementation 'jakarta.validation:jakarta.validation-api:3.1.1'
-    implementation 'org.postgresql:postgresql:42.6.0'
-    testImplementation 'org.postgresql:postgresql:42.6.0'
+    implementation 'org.postgresql:postgresql:42.7.2'
+    testImplementation 'org.postgresql:postgresql:42.7.2'
 }
 
 tasks.named('test') {
