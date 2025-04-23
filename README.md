@@ -1,6 +1,9 @@
 # README
 
 Guida all'avvio della applicazione.
+1. Build dell'applicazione Spring: ./gradlew clean build
+2. Build del Container Docker: docker compose build
+3. Start up dei Container Docker: docker compose up
 
 ## PostgreSQL in Docker
 
@@ -132,4 +135,4 @@ Al fine di compiere testing delle funzionalità realizzate, vengono proposte due
 
 1. Esecuzione di Integration testing tramite le classi di testing presenti in _src/test/resources_
 
-2. Import in postman della _Postman Collection_ "postman/UserController_Postman_Collection.json"
+2. Import in postman della _Postman Collection_ "postman/UserController_Postman_Collection.json" e conseguente esecuzione dei test postman dopo aver avviato l'app
