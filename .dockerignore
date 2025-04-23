@@ -1,0 +1,12 @@
+# Ignore Gradle build directory
+build/
+# Ignore Gradle wrapper files and directory
+.gradle/
+gradle/
+# Ignore IDE specific files
+.idea/
+*.iml
+# Ignore log files
+*.log
+# Ignore docker-compose if you don't want it in the image
+docker-compose.yml
