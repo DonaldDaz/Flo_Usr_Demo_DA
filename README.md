@@ -1,11 +1,13 @@
 # README
 
+## Avvio della applicazione
+
 Guida all'avvio della applicazione.
 1. Build dell'applicazione Spring: ./gradlew clean build
 2. Build del Container Docker: docker compose build
 3. Start up dei Container Docker: docker compose up
 
-## PostgreSQL in Docker
+## PostgreSQL
 
 Questa sezione spiega come configurare e avviare un database PostgreSQL in un container Docker utilizzando `docker-compose`, con l'esecuzione automatica di script di inizializzazione.
 
@@ -29,6 +31,8 @@ project-root/
 
 ### Contenuto di `docker-compose.yml`
 
+La sezione riguardante il db di docker-compose è la seguente, definisce la connessione al container docker che conterrà postgresDB
+
 ```yaml
 version: '3.8'
 
@@ -46,8 +50,6 @@ services:
       - db_data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
 
-volumes:
-  db_data:
 ```
 
 **Spiegazioni**:
@@ -58,41 +60,6 @@ volumes:
 
 ---
 
-### Comandi principali
-
-1. **Avvio iniziale (popolazione tramite script)**
-   ```bash
-   docker-compose up -d
-   ```
-    - Il volume `db_data` viene creato e popolato.
-    - Gli script in `db/init/` vengono eseguiti in ordine alfabetico.
-
-2. **Verifica dei log**
-   ```bash
-   docker logs my_postgres
-   ```
-    - Controlla che gli script siano stati eseguiti correttamente.
-
-3. **Accesso al database**
-    - **psql**:
-      ```bash
-      psql -h localhost -p 5433 -U postgres -d postgres
-      ```
-    - **DBeaver** o altri client:
-        - Host: `localhost`
-        - Porta: `5433`
-        - Database: `postgres`
-        - User: `postgres`
-        - Password: `admin`
-
-4. **Ripristino / Reset dei dati**
-
-   Se desideri rieseguire gli script di inizializzazione (cancella volumi e ricrea):
-   ```bash
-   docker-compose down -v
-   docker-compose up -d
-   ```
----
 
 ## Spring Boot application
 
