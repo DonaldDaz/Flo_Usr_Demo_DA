@@ -33,6 +33,7 @@ public class UserController {
      * @param firstName optional first name fragment
      * @param lastName  optional last name fragment
      * @return list of matching users as DTOs
+     * @example curl -X GET "http://localhost:8080/api/users?firstName=Alice&lastName=User"
      */
     @GetMapping
     public List<UserDto> list(
@@ -48,6 +49,7 @@ public class UserController {
      * @param id the user ID
      * @return user DTO
      * @throws NotFoundException if user is not found
+     * @example curl -X GET "http://localhost:8080/api/users/1"
      */
     @GetMapping("/{id}")
     public UserDto get(@PathVariable Long id) {
@@ -56,10 +58,19 @@ public class UserController {
     }
 
     /**
-     * Create a new user.
+     * Create a new user. Uses Valid to validate the DTO, based on its annotations.
      *
      * @param dto the DTO representing the new user
      * @return 201 with created user DTO
+     * @example
+     * curl -X POST "http://localhost:8080/api/users"
+     * Request Body:
+     * {
+     *     "firstName": "John",
+     *     "lastName": "Doe",
+     *     "email": "john.doe@example.com",
+     *     "address": "123 Street"
+     * }
      */
     @PostMapping
     public ResponseEntity<UserDto> create(@Valid @RequestBody UserCreateDto dto) {
@@ -74,6 +85,15 @@ public class UserController {
      * @param dto the DTO carrying updated values
      * @return updated user DTO
      * @throws NotFoundException if user is not found
+     * @example
+     * curl -X PUT "http://localhost:8080/api/users/1"
+     * Request Body:
+     * {
+     *     "firstName": "Jane",
+     *     "lastName": "Doe",
+     *     "email": "jane.doe@example.com",
+     *     "address": "456 Avenue"
+     * }
      */
     @PutMapping("/{id}")
     public UserDto update(
@@ -87,6 +107,7 @@ public class UserController {
      * Delete a user.
      *
      * @param id the ID of the user to delete
+     * @example curl -X DELETE "http://localhost:8080/api/users/1"
      */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -100,6 +121,7 @@ public class UserController {
      *
      * @param file the uploaded CSV file
      * @return list of imported user DTOs
+     * @example curl -X POST "http://localhost:8080/api/users/upload" -F "file=@users.csv"
      */
     @PostMapping("/upload")
     public ResponseEntity<List<UserDto>> uploadCsv(@RequestParam("file") MultipartFile file) {
@@ -108,6 +130,8 @@ public class UserController {
 
             List<UserCreateDto> dtos = new ArrayList<>();
             String[] line;
+
+            // csv.readNext() returns null when there are no more lines to read
             while ((line = csv.readNext()) != null) {
                 UserCreateDto dto = new UserCreateDto(
                         line[0], // firstName

@@ -3,7 +3,6 @@ package com.example.flo_usr_demo;
 import com.example.flo_usr_demo.dto.UserCreateDto;
 import com.example.flo_usr_demo.dto.UserDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 class UserControllerTest {
 
+    // Spring class to simulate controller calls
     @Autowired
     private MockMvc mvc;
 
@@ -42,7 +42,7 @@ class UserControllerTest {
 
     @Test
     void get_existingUser_returnsUser() throws Exception {
-        // We assume there is a Alice in db with id 1
+        // We assume there is an Alice in db with id 1
         mvc.perform(get("/api/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))

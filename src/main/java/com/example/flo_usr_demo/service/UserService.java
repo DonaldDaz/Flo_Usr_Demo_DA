@@ -65,6 +65,8 @@ public class UserService {
 
     /**
      * Retrieve a User by its ID.
+     * If the User is not found, an empty Optional is returned.
+     * If the User is found, map method maps it with the method UserMapper.toDto and returns an Optional containing the User DTO.
      *
      * @param id the ID of the User
      * @return an Optional containing the User DTO if found
@@ -75,6 +77,7 @@ public class UserService {
 
     /**
      * List all Users.
+     * Stream method converts list to a Java Stream, map maps the objects with UserMapper.toDto and Collect converts the stream into a List of User DTOs.
      *
      * @return a List of User DTOs
      */
@@ -121,6 +124,18 @@ public class UserService {
                 .collect(Collectors.toList());
         List<User> saved = repo.saveAll(entities);
         return saved.stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Retrieve all users whose email ends with the given domain.
+     *
+     * @param domain the domain to filter by (e.g., "@gmail.com")
+     * @return list of matching UserDto
+     */
+    public List<UserDto> getUsersByEmailDomain(String domain) {
+        return repo.findByEmailDomain(domain).stream()
                 .map(UserMapper::toDto)
                 .collect(Collectors.toList());
     }
