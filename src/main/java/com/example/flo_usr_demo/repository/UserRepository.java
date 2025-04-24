@@ -44,6 +44,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param domain the email domain to search for, e.g. "@gmail.com"
      * @return list of users whose email ends with the given domain
      */
-    @Query(value = "SELECT * FROM users WHERE email ILIKE %:domain", nativeQuery = true)
-    List<User> findByEmailDomain(@Param("domain") String domain);
+    @Query(value = "SELECT * FROM users WHERE email ILIKE :pattern", nativeQuery = true)
+    List<User> findByEmailDomain(@Param("pattern") String domain);
+
 }

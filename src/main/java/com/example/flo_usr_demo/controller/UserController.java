@@ -149,4 +149,16 @@ public class UserController {
                     .build();
         }
     }
+
+    /**
+     * Get all users with emails ending with the specified domain.
+     *
+     * @param domain the email domain (e.g., "@example.com")
+     * @return list of users as DTOs
+     * @example curl -X GET "http://localhost:8080/api/users/by-domain?domain=@example.com"
+     */
+    @GetMapping("/search/by-domain")
+    public List<UserDto> getUsersByDomain(@RequestParam String domain) {
+        return svc.getUsersByEmailDomain(domain);
+    }
 }
