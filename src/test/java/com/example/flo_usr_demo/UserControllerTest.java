@@ -113,7 +113,7 @@ class UserControllerTest {
 
     @Test
     void uploadCsv_validFile_importsData() throws Exception {
-        String csv = "Csv,User,csv.user@example.com,Csv Addr\n";
+        String csv = "Name,Surname,Email,Adress\nCsv,User,csv.user@example.com,Csv Addr\n";
         MockMultipartFile file = new MockMultipartFile(
                 "file", "users.csv", "text/csv", csv.getBytes()
         );
@@ -125,7 +125,7 @@ class UserControllerTest {
 
     @Test
     void uploadCsv_malformedFile_returnsBadRequest() throws Exception {
-        String badCsv = "bad,cols\n";
+        String badCsv = "Name,Surname,Email,Adress\nbad,cols\n";
         MockMultipartFile file = new MockMultipartFile(
                 "file", "bad.csv", "text/csv", badCsv.getBytes()
         );
