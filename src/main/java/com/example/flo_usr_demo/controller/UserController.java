@@ -131,6 +131,9 @@ public class UserController {
             List<UserCreateDto> dtos = new ArrayList<>();
             String[] line;
 
+            //avoid headers
+            csv.readNext();
+
             // csv.readNext() returns null when there are no more lines to read
             while ((line = csv.readNext()) != null) {
                 UserCreateDto dto = new UserCreateDto(
